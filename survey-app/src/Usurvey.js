@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -86,18 +87,18 @@ class Usurvey extends Component {
 
         if(this.state.isSubmitted === false && this.state.studentName === ''){
             studentName = <div>
-                 <h3>
+                 <h2>
                      Please Enter your name
-                 </h3>
+                 </h2>
                 <form onSubmit={this.nameSubmit}>
-                    <input type='text' placeholder='Enter your name' ref='name'></input>
+                    <input className='input-box' type='text' placeholder='Enter your name' ref='name'></input>
                 </form>
             </div>;
             questions = ''; 
         }
         else if(this.state.studentName !== '' && this.state.isSubmitted == false){
             studentName = <h2>Welcome to Usurvey, {this.state.studentName}</h2>
-            questions= <div>
+            questions= <div className='questions'>
                 <h3>Here are some Questions</h3>
                 <form onSubmit = {this.questionSubmit}> 
 
