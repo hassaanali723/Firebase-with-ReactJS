@@ -18,6 +18,17 @@ var firebaseConfig = {
 
 
 class Usurvey extends Component {
+
+    nameSubmit(event){
+        event.preventDefault();
+        var studentName = this.refs.name.value;
+        this.setState({studentName: studentName},function(){
+            console.log(this.state)
+        });
+        console.log('abc');
+
+    }
+
     constructor(props) {
         super(props);
         this.state = { 
@@ -25,12 +36,12 @@ class Usurvey extends Component {
             studentName: '',
             answers: {
                 answer1: '',
-                answer1: '',
-                answer1: ''      
+                answer2: '',
+                answer3: ''      
             },
             isSubmitted: false
          };
-         this.state.nameSubmit = this.state.nameSubmit.bind(this);
+         this.nameSubmit = this.nameSubmit.bind(this);
     }
     render() { 
         var studentName;
@@ -41,10 +52,15 @@ class Usurvey extends Component {
                  <h3>
                      Please Enter your name
                  </h3>
-                <form onSubmit={this.state.nameSubmit}>
+                <form onSubmit={this.nameSubmit}>
                     <input type='text' placeholder='Enter your name' ref='name'></input>
                 </form>
-            </div> 
+            </div>;
+            questions = ''; 
+        }
+        else if(this.state.studentName != '' && this.state.isSubmitted == false){
+            studentName = <h2>Welcome to Usurvey, {this.state.studentName}</h2>
+            questions= <p>Hey</p>
         }
 
         return ( 
