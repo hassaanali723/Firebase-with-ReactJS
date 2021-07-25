@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { firebase } from '@firebase/app'
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 // var firebase = require('firebase/app');
 var uuid = require('uuid');
@@ -48,7 +49,18 @@ class Usurvey extends Component {
 
     }
     
-    questionSubmit(){
+    questionSubmit(event){
+        event.preventDefault();
+
+        firebase.database().ref('uSurvey/'+this.state.uid).set({
+            studentName: this.state.studentName,
+            answers: this.state.answers
+        });
+        
+
+        this.setState({isSubmitted: true},function(){
+            console.log(this.state);
+        });
 
     }
 
@@ -56,7 +68,7 @@ class Usurvey extends Component {
         super(props);
         this.state = { 
             uid: uuid.v1(),
-            studentName: 'Hassaan',
+            studentName: '',
             answers: {
                 answer1: '',
                 answer2: '',
@@ -110,7 +122,7 @@ class Usurvey extends Component {
                     <input type="radio" name="answer3" value="Maybe" onChange={this.answerSelected}/>Maybe
                     </div>
 
-                    <input className="submit-btn" type="button" value="submit" />
+                    <input className="submit-btn" type="submit" value="submit" />
 
 
                 </form>
